@@ -14,10 +14,9 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/is-dead', async (req, res) => {
+router.get('/:name/:dateOfBirth/is-dead', async (req, res) => {
     try {
-        const { name, dateOfBirth } = req.body;
-        const person = await Person.findOne({ name, dateOfBirth });
+        const person = await Person.findOne({ name: req.params.name, dateOfBirth: req.params.dateOfBirth });
         if (!person) return res.status(404).json({ error: 'Person not found' });
         res.json({ name: person.name, dateOfBirth: person.dateOfBirth, isDead: true });
     } catch (err) {

@@ -14,18 +14,18 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:name/:dateOfBirth/is-dead', async (req, res) => {
+router.get('/:name/:yearOfBirth/is-dead', async (req, res) => {
   try {
-    console.log("Checking for:", req.params.name, req.params.dateOfBirth);
+    console.log("Checking for:", req.params.name, req.params.yearOfBirth);
 
     const person = await Person.findOne({ 
       name: req.params.name, 
-      dateOfBirth: req.params.dateOfBirth
+      yearOfBirth: req.params.yearOfBirth
     });
 
     if (!person) return res.status(404).json({ error: 'Person not found' });
 
-    res.json({ name: person.name, dateOfBirth: person.dateOfBirth, isDead: true });
+    res.json({ name: person.name, yearOfBirth: person.yearOfBirth, isDead: true });
   } catch (err) {
     console.error("Mongo error:", err);
     res.status(500).json({ error: err.message });
